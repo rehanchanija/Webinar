@@ -1,9 +1,11 @@
 import { cn } from '@/lib/utils';
 
-type BadgeType = 'live' | 'upcoming' | 'completed' | 'pending' | 'approved' | 'rejected';
+type BadgeType = 'live' | 'upcoming' | 'completed' | 'pending' | 'approved' | 'rejected' | 'none';
 
 export function StatusBadge({ type }: { type: BadgeType }) {
-  const variants: Record<BadgeType, string> = {
+  if (type === 'none') return null;
+
+  const variants: Record<Exclude<BadgeType, 'none'>, string> = {
     live: "bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400 border-red-200 dark:border-red-500/30 animate-pulse",
     upcoming: "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400 border-blue-200 dark:border-blue-500/30",
     completed: "bg-slate-100 text-slate-700 dark:bg-slate-500/20 dark:text-slate-400 border-slate-200 dark:border-slate-500/30",

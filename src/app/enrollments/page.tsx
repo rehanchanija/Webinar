@@ -3,7 +3,7 @@
 import { useStore, EnrollmentStatus } from '@/lib/store';
 import { StatusBadge } from '@/components/StatusBadge';
 import { formatDate } from '@/lib/utils';
-import { Calendar, Video, Mail, Trash2, CheckCircle2, XCircle, Clock } from 'lucide-react';
+import { Calendar, Video, Mail, Trash2, CheckCircle2, XCircle, Clock, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';

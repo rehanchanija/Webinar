@@ -8,6 +8,7 @@ import { Calendar, Users, MessageCircle, Share2, ArrowLeft, Radio } from 'lucide
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
+import { cn } from '@/lib/utils';
 
 export default function WebinarDetailPage() {
   const params = useParams();
