@@ -281,7 +281,8 @@ export default function EnrollmentsPage() {
         isOpen={!!selectedCertificate}
         onClose={() => setSelectedCertificate(null)}
         title="Certificate of Completion"
-        maxWidth="xl"
+        maxWidth="lg"
+        lightModeOnly={true}
         action={
           <button
             onClick={downloadPDF}
@@ -295,25 +296,25 @@ export default function EnrollmentsPage() {
         <div className="w-full overflow-x-auto pb-4 scrollbar-hide flex justify-center">
           <div
             id="certificate-content"
-            className="flex flex-col items-center justify-center p-6 md:p-8 bg-gradient-to-br from-slate-50 to-slate-100   border-slate-200 dark:border-slate-700 rounded-[20px] relative overflow-hidden w-[740px] min-h-[460px] shrink-0 shadow-lg"
+            className="flex flex-col items-center justify-center p-6 md:p-8 bg-gradient-to-br from-slate-50 to-slate-100 border-slate-200 rounded-[20px] relative overflow-hidden w-[540px] min-h-[460px] shrink-0 shadow-lg"
           >
             <div className="absolute top-0 left-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl" />
             <div className="absolute bottom-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl" />
 
             <Award size={64} className="text-yellow-500 mb-5 drop-shadow-md" />
-            <h2 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-widest text-center mb-3">
+            <h2 className="text-xl font-black text-slate-900 uppercase tracking-widest text-center mb-3">
               Certificate of Completion
             </h2>
 
-            <div className="text-slate-500 dark:text-slate-400 text-center space-y-2 mb-4 max-w-sm mx-auto leading-relaxed text-[10px] md:text-[11px]">
+            <div className="text-slate-500 text-center space-y-2 mb-4 max-w-sm mx-auto leading-relaxed text-[10px] md:text-[11px]">
               <p className="italic">This acknowledges that</p>
             </div>
 
-            <p className="text-xl md:text-2xl font-serif font-bold text-slate-800 dark:text-slate-200 mb-5 border-b border-slate-300 dark:border-slate-600 pb-2.5 px-8 text-center w-full max-w-lg">
+            <p className="text-xl md:text-2xl font-serif font-bold text-slate-800 mb-5 border-b border-slate-300 pb-2.5 px-8 text-center w-full max-w-lg">
               {user.name}
             </p>
 
-            <div className="text-slate-500 dark:text-slate-400 text-center space-y-3 mb-5 max-w-lg mx-auto leading-relaxed text-[10px] md:text-[11px]">
+            <div className="text-slate-500 text-center space-y-3 mb-5 max-w-lg  mx-auto leading-relaxed text-[13px]">
               <p>
                 has successfully fulfilled all requirements and demonstrated
                 exceptional commitment by completing the comprehensive training
@@ -321,36 +322,32 @@ export default function EnrollmentsPage() {
               </p>
             </div>
 
-            <p className="text-lg md:text-xl font-bold text-slate-900 dark:text-white text-center mb-4 max-w-md">
+            <p className="text-lg md:text-xl font-bold text-slate-900 text-center mb-4 max-w-md">
               {selectedCertificate?.title}
             </p>
 
-            <p className="text-[10px] text-slate-400 dark:text-slate-500 text-center italic max-w-xl mb-8 leading-relaxed px-4">
+            <p className="text-[13px] text-slate-400 text-center italic max-w-xl mb-8 leading-relaxed px-4">
               This certificate verifies the acquisition of specialized skills
               and knowledge through rigorous participation in the detailed
               webinar sessions, covering essential industry practices and
               advanced methodologies.
             </p>
-            <div className="flex gap-5 text-xs text-slate-600 dark:text-slate-300 mb-8 bg-white/50 dark:bg-slate-950/50 px-6 py-2 rounded-full border border-slate-200 dark:border-slate-700">
+            <div className="flex gap-5 text-xs text-slate-600 mb-8 bg-white/50 px-6 py-2 rounded-full border border-slate-200">
               <span className="flex items-center gap-1.5">
-                <strong className="text-slate-900 dark:text-white">
-                  Instructor:
-                </strong>
+                <strong className="text-slate-900">Instructor:</strong>
                 {selectedCertificate?.instructor}
               </span>
-              <span className="text-slate-300 dark:text-slate-700">|</span>
+              <span className="text-slate-300">|</span>
               <span className="flex items-center gap-1.5">
-                <strong className="text-slate-900 dark:text-white">
-                  Duration:
-                </strong>
+                <strong className="text-slate-900">Duration:</strong>
                 {selectedCertificate?.duration}
               </span>
             </div>
 
-            <div className="flex justify-between w-full mt-auto text-[10px] md:text-xs text-slate-500 dark:text-slate-400 font-bold border-t border-slate-200 dark:border-slate-700 pt-5 px-4 mb-2">
+            <div className="flex justify-between w-full mt-auto text-[10px] md:text-xs text-slate-500 font-bold border-t border-slate-200 pt-5 px-4 mb-2">
               <div className="flex flex-col items-center">
                 <span>{new Date().toLocaleDateString()}</span>
-                <span className="text-xs uppercase opacity-70 border-t border-slate-300 dark:border-slate-600 mt-1 pt-1">
+                <span className="text-xs uppercase opacity-70 border-t border-slate-300 mt-1 pt-1">
                   Date
                 </span>
               </div>
