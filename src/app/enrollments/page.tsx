@@ -74,14 +74,17 @@ export default function EnrollmentsPage() {
       const html2canvas = (await import("html2canvas")).default;
       const { jsPDF } = await import("jspdf");
 
-      const canvas = await html2canvas(element, { 
+      const canvas = await html2canvas(element, {
         scale: 3, // Higher scale for better quality
         useCORS: true,
         logging: false,
-        backgroundColor: null
+        backgroundColor: null,
       });
       const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("landscape", "px", [canvas.width / 3, canvas.height / 3]);
+      const pdf = new jsPDF("landscape", "px", [
+        canvas.width / 3,
+        canvas.height / 3,
+      ]);
 
       pdf.addImage(imgData, "PNG", 0, 0, canvas.width / 3, canvas.height / 3);
       pdf.save(`${user?.name}_Certificate.pdf`);
@@ -146,7 +149,7 @@ export default function EnrollmentsPage() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="group relative overflow-hidden bg-white dark:bg-slate-950 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all p-4 sm:p-6"
+                className="group relative overflow-hidden bg-white dark:bg-slate-950 rounded-3xl border border-slate-200 dark:border-slate-800  transition-all p-4 sm:p-6"
               >
                 <div className="flex flex-col md:flex-row gap-6">
                   <div className="relative w-full md:w-32 h-20 rounded-2xl overflow-hidden shrink-0 border border-slate-100 dark:border-slate-800">
@@ -279,22 +282,21 @@ export default function EnrollmentsPage() {
         onClose={() => setSelectedCertificate(null)}
         title="Certificate of Completion"
         maxWidth="xl"
-      >
-        <div className="relative w-full">
+        action={
           <button
             onClick={downloadPDF}
-            className="absolute top-4 right-4 z-20 p-3 bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-xl rounded-full transition-all active:scale-95 border border-slate-200 dark:border-slate-700"
+            className="p-2.5 bg-blue-50 text-blue-600  hover:bg-blue-100   transition-all  "
             title="Download PDF"
-            data-html2canvas-ignore="true"
           >
-            <Download size={20} />
+            <Download size={18} />
           </button>
-
-          <div className="w-full overflow-x-auto pb-4 scrollbar-hide flex justify-center">
-            <div
-              id="certificate-content"
-              className="flex flex-col items-center justify-center p-8 md:p-10 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 border-[8px] border-double border-slate-200 dark:border-slate-700 rounded-[24px] relative overflow-hidden w-[800px] min-h-[500px] shrink-0 shadow-2xl"
-            >
+        }
+      >
+        <div className="w-full overflow-x-auto pb-4 scrollbar-hide flex justify-center">
+          <div
+            id="certificate-content"
+            className="flex flex-col items-center justify-center p-6 md:p-8 bg-gradient-to-br from-slate-50 to-slate-100   border-slate-200 dark:border-slate-700 rounded-[20px] relative overflow-hidden w-[740px] min-h-[460px] shrink-0 shadow-lg"
+          >
             <div className="absolute top-0 left-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl" />
             <div className="absolute bottom-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl" />
 
@@ -303,15 +305,15 @@ export default function EnrollmentsPage() {
               Certificate of Completion
             </h2>
 
-            <div className="text-slate-500 dark:text-slate-400 text-center space-y-2 mb-6 max-w-lg mx-auto leading-relaxed text-[11px] md:text-xs">
+            <div className="text-slate-500 dark:text-slate-400 text-center space-y-2 mb-4 max-w-sm mx-auto leading-relaxed text-[10px] md:text-[11px]">
               <p className="italic">This acknowledges that</p>
             </div>
 
-            <p className="text-2xl md:text-3xl font-serif font-bold text-slate-800 dark:text-slate-200 mb-6 border-b border-slate-300 dark:border-slate-600 pb-3 px-10 text-center w-full max-w-xl">
+            <p className="text-xl md:text-2xl font-serif font-bold text-slate-800 dark:text-slate-200 mb-5 border-b border-slate-300 dark:border-slate-600 pb-2.5 px-8 text-center w-full max-w-lg">
               {user.name}
             </p>
 
-            <div className="text-slate-500 dark:text-slate-400 text-center space-y-3 mb-6 max-w-xl mx-auto leading-relaxed text-[11px] md:text-xs">
+            <div className="text-slate-500 dark:text-slate-400 text-center space-y-3 mb-5 max-w-lg mx-auto leading-relaxed text-[10px] md:text-[11px]">
               <p>
                 has successfully fulfilled all requirements and demonstrated
                 exceptional commitment by completing the comprehensive training
@@ -319,7 +321,7 @@ export default function EnrollmentsPage() {
               </p>
             </div>
 
-            <p className="text-lg md:text-xl font-bold text-slate-900 dark:text-white text-center mb-4 max-w-lg">
+            <p className="text-lg md:text-xl font-bold text-slate-900 dark:text-white text-center mb-4 max-w-md">
               {selectedCertificate?.title}
             </p>
 
@@ -362,23 +364,6 @@ export default function EnrollmentsPage() {
               </div>
             </div>
           </div>
-        </div>
-        </div>
-
-        <div className="flex justify-end gap-3 mt-6">
-          <button
-            onClick={() => setSelectedCertificate(null)}
-            className="px-6 py-2.5 rounded-xl font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-          >
-            Close
-          </button>
-          <button
-            onClick={downloadPDF}
-            className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all shadow-lg shadow-blue-600/20 active:scale-95 flex items-center gap-2"
-          >
-            <Download size={18} />
-            Download PDF
-          </button>
         </div>
       </Modal>
     </div>
