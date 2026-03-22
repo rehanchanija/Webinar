@@ -18,12 +18,14 @@ export function Navbar() {
     router.push('/login');
   };
 
-  const navItems = [
-    { name: 'Dashboard', href: '/dashboard', icon: LayoutGrid },
-    { name: 'My Enrollments', href: '/enrollments', icon: BookOpen },
-  ];
-
-  if (!user) return null;
+  const navItems = user 
+    ? [
+        { name: 'Dashboard', href: '/dashboard', icon: LayoutGrid },
+        { name: 'My Enrollments', href: '/enrollments', icon: BookOpen },
+      ]
+    : [
+        { name: 'Dashboard', href: '/dashboard', icon: LayoutGrid },
+      ];
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b border-slate-200/60 dark:border-slate-800/60 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl">
@@ -69,23 +71,40 @@ export function Navbar() {
             
             <div className="h-4 w-px bg-slate-200 dark:bg-slate-800 hidden sm:block" />
 
-            <div className="flex items-center gap-3">
-              <div className="hidden sm:flex flex-col items-end text-sm">
-                <span className="font-semibold text-slate-900 dark:text-white leading-none">
-                  {user.name}
-                </span>
-                <span className="text-xs text-slate-500 dark:text-slate-500">
-                  {user.email}
-                </span>
+            {user ? (
+              <div className="flex items-center gap-3">
+                <div className="hidden sm:flex flex-col items-end text-sm">
+                  <span className="font-semibold text-slate-900 dark:text-white leading-none">
+                    {user.name}
+                  </span>
+                  <span className="text-xs text-slate-500 dark:text-slate-500">
+                    {user.email}
+                  </span>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="p-2 rounded-full text-slate-500 hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-500/10 dark:hover:text-rose-400 transition-all active:scale-95"
+                  title="Logout"
+                >
+                  <LogOut size={20} />
+                </button>
               </div>
-              <button
-                onClick={handleLogout}
-                className="p-2 rounded-full text-slate-500 hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-500/10 dark:hover:text-rose-400 transition-all active:scale-95"
-                title="Logout"
-              >
-                <LogOut size={20} />
-              </button>
-            </div>
+            ) : (
+              <div className="flex items-center gap-1 sm:gap-3">
+                <Link 
+                  href="/login" 
+                  className="px-4 py-2 font-bold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
+                >
+                  Log in
+                </Link>
+                <Link 
+                  href="/signup" 
+                  className="px-4 sm:px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all shadow-lg shadow-blue-500/20 active:scale-95 text-sm"
+                >
+                  Sign up
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

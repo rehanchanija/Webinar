@@ -2,19 +2,13 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useStore } from '@/lib/store';
 
 export default function Home() {
   const router = useRouter();
-  const user = useStore((state) => state.user);
 
   useEffect(() => {
-    if (user) {
-      router.replace('/dashboard');
-    } else {
-      router.replace('/login');
-    }
-  }, [user, router]);
+    router.replace('/dashboard');
+  }, [router]);
 
   return (
     <div className="flex h-screen items-center justify-center bg-white dark:bg-slate-950">

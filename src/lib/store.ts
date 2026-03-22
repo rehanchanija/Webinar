@@ -11,6 +11,8 @@ export interface Webinar {
   date: string;
   status: WebinarStatus;
   thumbnail: string;
+  instructor: string;
+  duration: string;
 }
 
 export interface Enrollment {
@@ -34,6 +36,7 @@ interface AppStore {
   logout: () => void;
   enroll: (webinarId: string) => void;
   setEnrollmentStatus: (enrollmentId: string, status: EnrollmentStatus) => void;
+  markWebinarCompleted: (webinarId: string) => void;
 }
 
 export const useStore = create<AppStore>()(
@@ -48,6 +51,8 @@ export const useStore = create<AppStore>()(
           date: '2025-06-15T18:00:00Z',
           status: 'live',
           thumbnail: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800',
+          instructor: 'Dr. Sarah Connor',
+          duration: '60 mins',
         },
         {
           id: '2',
@@ -56,6 +61,8 @@ export const useStore = create<AppStore>()(
           date: '2025-07-02T15:00:00Z',
           status: 'upcoming',
           thumbnail: 'https://images.unsplash.com/photo-1618477388954-7852f32655ec?auto=format&fit=crop&q=80&w=800',
+          instructor: 'Lee Robinson',
+          duration: '45 mins',
         },
         {
           id: '3',
@@ -64,6 +71,8 @@ export const useStore = create<AppStore>()(
           date: '2025-05-20T14:00:00Z',
           status: 'completed',
           thumbnail: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?auto=format&fit=crop&q=80&w=800',
+          instructor: 'Jane Doe',
+          duration: '90 mins',
         },
         {
           id: '4',
@@ -72,6 +81,8 @@ export const useStore = create<AppStore>()(
           date: '2025-08-10T20:00:00Z',
           status: 'upcoming',
           thumbnail: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800',
+          instructor: 'Alex Rivera',
+          duration: '120 mins',
         },
         {
           id: '5',
@@ -80,14 +91,28 @@ export const useStore = create<AppStore>()(
           date: '2025-09-05T16:00:00Z',
           status: 'upcoming',
           thumbnail: 'https://images.unsplash.com/photo-1541462608141-ad4d05942002?auto=format&fit=crop&q=80&w=800',
+          instructor: 'Emily Watson',
+          duration: '60 mins',
         },
       ],
       enrollments: [],
       login: (email, name) =>
-        set({
-          user: { id: 'u1', name, email },
+        set((state) => {
+          const hasEnrollments = state.enrollments.some(e => e.userId === 'u1');
+          return {
+            user: { id: 'u1', name, email },
+            enrollments: hasEnrollments ? state.enrollments : [
+              ...state.enrollments,
+              {
+                id: 'demo-e-1',
+                webinarId: '3', // Completed webinar
+                userId: 'u1',
+                status: 'approved'
+              }
+            ]
+          };
         }),
-      logout: () => set({ user: null, enrollments: [] }),
+      logout: () => set({ user: null }),
       enroll: (webinarId) =>
         set((state) => {
           if (!state.user) return state;
@@ -105,6 +130,12 @@ export const useStore = create<AppStore>()(
         set((state) => ({
           enrollments: state.enrollments.map((e) =>
             e.id === enrollmentId ? { ...e, status } : e
+          ),
+        })),
+      markWebinarCompleted: (webinarId) =>
+        set((state) => ({
+          webinars: state.webinars.map((w) =>
+            w.id === webinarId ? { ...w, status: 'completed' } : w
           ),
         })),
     }),

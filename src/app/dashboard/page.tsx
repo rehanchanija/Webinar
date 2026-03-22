@@ -19,11 +19,7 @@ export default function DashboardPage() {
   const [isEnrolling, setIsEnrolling] = useState(false);
   const [hasEnrolled, setHasEnrolled] = useState(false);
 
-  useEffect(() => {
-    if (!user) {
-      router.replace('/login');
-    }
-  }, [user, router]);
+
 
   const filteredWebinars = useMemo(() => {
     return webinars.filter((w) => {
@@ -35,6 +31,10 @@ export default function DashboardPage() {
   }, [webinars, search, activeFilter]);
 
   const handleEnrollClick = (id: string) => {
+    if (!user) {
+      router.push('/login');
+      return;
+    }
     const webinar = webinars.find(w => w.id === id);
     if (webinar) {
       setSelectedWebinar(webinar);
@@ -60,7 +60,7 @@ export default function DashboardPage() {
     }, 1500);
   };
 
-  if (!user) return null;
+
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">

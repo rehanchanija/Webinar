@@ -56,13 +56,11 @@ export function WebinarCard({ webinar, onEnroll }: { webinar: Webinar; onEnroll?
           
           <button
             onClick={() => onEnroll?.(webinar.id)}
-            disabled={isEnrolled || webinar.status === 'completed'}
+            disabled={isEnrolled}
             className={cn(
               "px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-300 transform active:scale-95 shadow-md",
               isEnrolled
                 ? "bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700 cursor-not-allowed"
-                : webinar.status === 'completed'
-                ? "bg-slate-50 dark:bg-slate-900 text-slate-400 border border-slate-100 dark:border-slate-800 cursor-not-allowed shadow-none"
                 : "bg-blue-600 hover:bg-blue-700 text-white shadow-blue-500/20 hover:shadow-blue-500/40"
             )}
           >
@@ -70,7 +68,7 @@ export function WebinarCard({ webinar, onEnroll }: { webinar: Webinar; onEnroll?
               <span className="flex items-center gap-1.5 ">
                 Enrolled
               </span>
-            ) : webinar.status === 'completed' ? 'Finished' : 'Enroll Now'}
+            ) : webinar.status === 'completed' ? 'Watch Recording' : 'Enroll Now'}
           </button>
         </div>
       </div>
