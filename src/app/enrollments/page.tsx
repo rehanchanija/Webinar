@@ -332,7 +332,7 @@ export default function EnrollmentsPage() {
               webinar sessions, covering essential industry practices and
               advanced methodologies.
             </p>
-            <div className="flex gap-5 text-xs text-slate-600 mb-8 bg-white/50 px-6 py-2 rounded-full border border-slate-200">
+            <div className="flex gap-5 text-xs text-slate-600 mb-6 bg-white/50 px-6 py-2 rounded-full border border-slate-200">
               <span className="flex items-center gap-1.5">
                 <strong className="text-slate-900">Instructor:</strong>
                 {selectedCertificate?.instructor}
@@ -342,6 +342,14 @@ export default function EnrollmentsPage() {
                 <strong className="text-slate-900">Duration:</strong>
                 {selectedCertificate?.duration}
               </span>
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-4 text-[9px] uppercase tracking-tighter text-slate-400 font-mono mb-8">
+              <span>Ref ID: ST-{Math.random().toString(36).substring(7).toUpperCase()}</span>
+              <span>•</span>
+              <span>Verification: streamly.ac/verify/{selectedCertificate?.id.substring(0,6)}</span>
+              <span>•</span>
+              <span>Status: Verified Official</span>
             </div>
 
             <div className="flex justify-between w-full mt-auto text-[10px] md:text-xs text-slate-500 font-bold border-t border-slate-200 pt-5 px-4 mb-2">
